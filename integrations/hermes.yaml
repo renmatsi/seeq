@@ -3,5 +3,5 @@ mcp_servers:
     command: "C:/Users/Renan/AppData/Local/Programs/Python/Python313/python.exe"
     args:
       - "-B"
-      - "C:/Users/Renan/Documents/Codex/2026-11-10/referenced-chatgpt-conversation-this-is-an/outputs/torrentFindr/seeq_mcp.py"
+      - "C:/Users/Renan/seeq/seeq_mcp.py"
     timeout: 60
