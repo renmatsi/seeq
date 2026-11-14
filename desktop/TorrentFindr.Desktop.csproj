@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>seeq</AssemblyName>
+    <Product>seeq</Product>
+    <Description>seeq</Description>
+    <ApplicationIcon>torrentFindr.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+    <EmbeddedResource Include="torrentFindr.ico" LogicalName="torrentFindr.WindowIcon.ico" />
+    <EmbeddedResource Include="$(PortablePayload)" LogicalName="torrentFindr.Payload.zip"
+                      Condition="'$(PortablePayload)' != ''" />
+  </ItemGroup>
+  <Target Name="RemoveUnusedWebView2Wpf" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="@(Reference)" Condition="'%(Reference.Filename)' == 'Microsoft.Web.WebView2.Wpf'" />
+    </ItemGroup>
+  </Target>
+</Project>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>seeq</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="i18n.js" defer></script>
+  <script src="desk.js" defer></script>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <header class="chrome">
+    <div class="titlebar" id="titlebar">
+      <img class="brand-banner" src="brand-banner.png" width="144" height="45" alt=""><strong class="brand">seeq</strong>
+      <nav aria-label="Navegação principal">
+        <button class="icon-button" data-view="Busca" aria-pressed="true" aria-label="Busca" title="Busca" data-icon="search"></button>
+        <button class="icon-button" data-view="Favoritos" aria-pressed="false" aria-label="Favoritos" title="Favoritos" data-icon="star"></button>
+        <button class="icon-button" data-panel="history" aria-label="Histórico" title="Histórico" data-icon="history"></button>
+        <button class="icon-button" data-panel="sources" aria-label="Fontes" title="Fontes" data-icon="radio"></button>
+      </nav>
+      <div class="window-actions">
+        <button id="cancel-search" class="caption" hidden aria-label="Cancelar busca" title="Cancelar busca" data-icon="stop"></button>
+        <button id="log-toggle" class="caption" data-panel="log" aria-label="Log de atividade" title="Log de atividade" data-icon="log"></button>
+        <button class="caption" data-panel="appearance" aria-label="Configurações" title="Configurações" data-icon="settings"></button>
+        <button class="caption" data-window="minimize" aria-label="Minimizar" title="Minimizar" data-icon="minus"></button>
+        <button class="caption close" data-window="close" aria-label="Fechar" title="Fechar" data-icon="close"></button>
+      </div>
+    </div>
+  </header>
+  <div class="workspace" id="workspace">
+  <main>
+    <h1 id="view-title" hidden>Favoritos</h1>
+    <form id="search" class="search" role="search" aria-label="Buscar torrents">
+      <input id="query" aria-label="Buscar torrents" placeholder="Título, palavra-chave ou infohash" autocomplete="off">
+      <button class="icon-button primary" type="submit" aria-label="Buscar" title="Buscar" data-icon="search"></button>
+    </form>
+    <div class="toolbar">
+      <button id="filter-toggle" class="icon-button" type="button" aria-expanded="false" aria-controls="filters" aria-label="Abrir busca avançada" title="Abrir busca avançada" data-icon="plus"></button>
+      <button class="pill" data-period="" aria-pressed="true">Qualquer data</button>
+      <button class="pill" data-period="7" aria-pressed="false">Últimos 7 dias</button>
+      <button class="pill" data-period="30" aria-pressed="false">Últimos 30 dias</button>
+      <details id="sort">
+        <summary class="icon-button" aria-label="Ordenar resultados" title="Ordenar resultados · Relevância" data-icon="sort"></summary>
+        <div class="sort-options" role="group" aria-label="Ordenação">
+          <button type="button" data-order="Relevância" aria-pressed="true">Relevância</button>
+          <button type="button" data-order="Mais recentes" aria-pressed="false">Mais recentes</button>
+          <button type="button" data-order="Mais antigos" aria-pressed="false">Mais antigos</button>
+          <button type="button" data-order="Mais seeders" aria-pressed="false">Mais seeders</button>
+          <button type="button" data-order="Menor tamanho" aria-pressed="false">Menor tamanho</button>
+        </div>
+      </details>
+    </div>
+    <form id="filters" class="filter-panel" hidden inert>
+      <h2>Busca avançada</h2>
+      <div class="smart-line">
+        <label><input id="smart" type="checkbox" checked> Interpretar filtros na busca</label>
+        <button id="search-example" class="icon-button" type="button" aria-label="Usar busca de exemplo" title="Usar busca de exemplo" data-icon="flask"></button>
+        <span class="muted" id="interpreted" aria-live="polite"></span>
+      </div>
+      <div class="fields">
+        <label>Publicação do torrent<select name="period">
+          <option value="">Qualquer data</option><option value="1">Hoje</option><option value="7">Últimos 7 dias</option>
+          <option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="custom">Intervalo personalizado</option>
+        </select></label>
+        <label data-date hidden>De<input type="date" name="from_date"></label>
+        <label data-date hidden>Até<input type="date" name="to_date"></label>
+        <label>Ano do conteúdo<input name="year" type="number" min="1900" placeholder="Qualquer"></label>
+        <label>Fonte<select name="source"></select></label><label>Categoria<select name="category"></select></label>
+        <label>Idioma<select name="language"></select></label><label>Qualidade<select name="quality"></select></label>
+        <label>Formato<select name="format"></select></label><label>Tipo de link<select name="link"></select></label>
+        <label>Seeders mín.<input name="min_seeds" type="number" min="0" placeholder="Sem mínimo"></label>
+        <label>Tamanho mín. (GB)<input name="min_gb" type="number" min="0" step="any" placeholder="Sem mínimo"></label>
+        <label>Tamanho máx. (GB)<input name="max_gb" type="number" min="0" step="any" placeholder="Sem máximo"></label>
+      </div>
+      <div class="filter-actions">
+        <label><input type="checkbox" name="unknown_dates"> Incluir itens sem data no período</label>
+        <button type="button" class="icon-button" data-clear aria-label="Limpar filtros" title="Limpar filtros" data-icon="reset"></button>
+        <button type="submit" class="icon-button primary" aria-label="Aplicar filtros" title="Aplicar filtros" data-icon="check"></button>
+      </div>
+    </form>
+    <div class="chips" id="chips" aria-label="Filtros aplicados"></div>
+    <div id="result-summary" class="summary" hidden>
+      <strong id="count" aria-live="polite" hidden></strong>
+      <button id="toggle-detail" class="icon-button" hidden aria-expanded="true" aria-controls="details" aria-label="Recolher detalhes" title="Recolher detalhes" data-icon="panel-right"></button>
+    </div>
+    <div id="issues" class="issues" hidden></div>
+    <div class="split" id="split">
+      <section id="results" aria-label="Resultados"></section>
+      <aside id="details" aria-label="Detalhes do resultado"></aside>
+    </div>
+  </main>
+  </div>
+  <div id="status" class="visually-hidden" role="status"></div>
+  <dialog id="dialog" aria-labelledby="dialog-title"><div class="dialog-heading"><h2 id="dialog-title"></h2><button data-dialog-close aria-label="Fechar painel" title="Fechar painel" data-icon="close"></button></div><div id="dialog-content"></div></dialog>
+</body>
+</html>

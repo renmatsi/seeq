@@ -1,0 +1,16 @@
+# Binários regeneráveis (ver AGENTS.md para os comandos de build)
+dist/
+build/
+browser/
+desktop-app/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# QA / temporários
+.qa/
+qa-*/
+*.user
+*.log
