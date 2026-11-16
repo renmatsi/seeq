@@ -4,6 +4,10 @@ build/
 browser/
 desktop-app/
 
+# .NET build artifacts
+bin/
+obj/
+
 # Python
 __pycache__/
 *.pyc

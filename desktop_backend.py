@@ -30,6 +30,9 @@ FACETS = ('source','category','language','quality','format','link')
 THEMES = ('Sistema','Papel','Grafite','Meia-noite','AMOLED')
 BACKDROP_BLENDS = ('auto','soft-light','screen','multiply')
 LOCALES = ('pt-BR','en','es','ru','ja','zh-Hans')
+APP_VERSION = '1.1.0'
+DEVELOPER = 'Renan Matos'
+SITE = 'https://renmatsi.github.io/'
 
 
 def send(kind, **fields):
@@ -203,7 +206,8 @@ class Desk:
              order=self.order, sources=self.sources(), history=self.data['history'][-100:],
              responded=sorted(self.responded), failures=self.failures, querySources=self.query_sources,
              appearance=self.data['appearance'], locale=self.data.get('locale','pt-BR'), facets=self.facets(source),
-             jackettPort=self.data.get('jackett_port',9117), jackettReady=bool(self.jackett_key))
+             jackettPort=self.data.get('jackett_port',9117), jackettReady=bool(self.jackett_key),
+             version=APP_VERSION, developer=DEVELOPER, site=SITE)
 
     def search(self,raw,smart):
         if self.browser_open:
@@ -322,6 +326,9 @@ class Desk:
             row = self.keys.get(str(message.get('id')))
             if row:
                 self.open_result(row,message.get('kind'))
+            return
+        if action=='site':
+            webbrowser.open(SITE)
             return
         if action=='manual':
             term = str(message.get('query','')).strip()[:400]

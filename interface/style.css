@@ -169,6 +169,13 @@ dialog::backdrop { background:rgb(0 0 0/.5); }
 .source-auth { margin-top:12px; display:grid; grid-template-columns:110px minmax(0,1fr); gap:10px; }
 .source-auth label { display:grid; gap:4px; }
 .source-auth input { width:100%; padding:7px; }
+.about-section p+p { margin-top:5px; }
+.about-app { display:flex; align-items:baseline; gap:9px; }
+.about-app strong { font-size:17px; letter-spacing:-.25px; color:var(--accent-text); }
+.about-version { color:var(--muted); font-size:14px; font-variant-numeric:tabular-nums; }
+.about-site { display:inline-flex; align-items:center; gap:7px; margin-top:9px; padding:8px 12px; font-size:14px; color:var(--accent-text); background:var(--selected); }
+.about-site:hover { background:var(--accent); color:var(--on-accent); }
+.about-site svg { width:15px; height:15px; }
 .panel-bottom { margin-top:12px; display:flex; justify-content:flex-end; }
 .history-list { display:grid; gap:5px; }
 .history-actions { display:flex; justify-content:flex-end; margin-bottom:10px; }

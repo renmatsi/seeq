@@ -23,6 +23,10 @@ class Result:
     file_format: str = ''
     source_dates: dict[str, str] = field(default_factory=dict)
 
+    def __post_init__(self):
+        # Fontes como o apibay entregam títulos com entidades HTML (&euml; etc.).
+        self.title = html.unescape(self.title)
+
 
 def publication_date(value):
     """Normaliza uma data informada pelo provedor. Vazio representa ausência."""
@@ -157,7 +161,7 @@ class PirateBay:
         rows=[]
         for x in data:
             if str(x.get('id'))=='0': continue
-            title=x.get('name',''); h=normalize_hash(x.get('info_hash',''))
+            title=html.unescape(x.get('name','')); h=normalize_hash(x.get('info_hash',''))
             if not title or not h: continue
             rows.append(Result(title,self.name,magnet=magnet_for(h,title),infohash=h,category=str(x.get('category','')),quality=quality_from(title),size=integer(x.get('size')),seeders=integer(x.get('seeders')),published=publication_date(x.get('added'))))
         return rows

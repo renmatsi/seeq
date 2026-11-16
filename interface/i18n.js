@@ -165,7 +165,11 @@ const translations = {
   "Informe um ano de conteúdo válido.":["Enter a valid content year.","Introduce un año de contenido válido.","Введите действительный год выпуска.","有効な年を入力してください。","请输入有效的内容年份。"],
   "Informe um intervalo de publicação válido.":["Enter a valid publication range.","Introduce un intervalo de publicación válido.","Укажите допустимый период публикации.","有効な公開期間を入力してください。","请输入有效的发布日期范围。"],
   "O tamanho mínimo precisa ser menor ou igual ao máximo.":["The minimum size must be less than or equal to the maximum.","El tamaño mínimo debe ser menor o igual al máximo.","Минимальный размер не может превышать максимальный.","最小サイズは最大サイズ以下にしてください。","最小体积不得超过最大体积。"],
-  "O mecanismo de busca foi encerrado. Reabra o aplicativo.":["The search engine stopped. Reopen the app.","El motor de búsqueda se detuvo. Vuelve a abrir la aplicación.","Поисковый модуль остановлен. Откройте приложение заново.","検索エンジンが停止しました。アプリを開き直してください。","搜索引擎已停止。请重新打开应用。"]
+  "O mecanismo de busca foi encerrado. Reabra o aplicativo.":["The search engine stopped. Reopen the app.","El motor de búsqueda se detuvo. Vuelve a abrir la aplicación.","Поисковый модуль остановлен. Откройте приложение заново.","検索エンジンが停止しました。アプリを開き直してください。","搜索引擎已停止。请重新打开应用。"],
+  "Sobre":["About","Acerca de","О приложении","このアプリについて","关于"],
+  "Versão {version}":["Version {version}","Versión {version}","Версия {version}","バージョン {version}","版本 {version}"],
+  "Desenvolvido por":["Developed by","Desarrollado por","Разработчик","開発者","开发者"],
+  "Abrir site do desenvolvedor":["Open developer website","Abrir sitio del desarrollador","Открыть сайт разработчика","開発者のサイトを開く","打开开发者网站"]
 };
 
 function tr(key, values = {}) {

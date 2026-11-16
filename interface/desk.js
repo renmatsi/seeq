@@ -57,7 +57,7 @@ const modes = matchMedia("(prefers-color-scheme:light)");
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 let appearance = {theme:"Grafite", accent:presets.Grafite, ...backdropDefaults};
 let appliedPalette;
-let state = {rows:[],total:0,view:"Busca",filters:{},sources:[],history:[],facets:{},failures:{}};
+let state = {rows:[],total:0,view:"Busca",filters:{},sources:[],history:[],facets:{},failures:{},version:"",developer:"",site:""};
 let selected = "";
 let details = true;
 let lastStatus;
@@ -326,6 +326,11 @@ function openPanel(type) {
             <input type="range" min="5" max="30" value="${appearance.backdropOpacity}" data-opacity>
           </label>
         </div>
+      </div>
+      <div class="panel-section about-section"><h3>${esc(tr("Sobre"))}</h3>
+        <p class="about-app"><strong>seeq</strong><span class="about-version">${esc(tr("Versão {version}",{version:state.version||"—"}))}</span></p>
+        <p class="muted">${esc(tr("Desenvolvido por"))} ${esc(state.developer||"Renan Matos")}</p>
+        <button type="button" class="about-site" data-site aria-label="${esc(tr("Abrir site do desenvolvedor"))}" title="${esc(tr("Abrir site do desenvolvedor"))}">${icon("external")}<span>${esc((state.site||"https://renmatsi.github.io/").replace(/^https?:\/\//,"").replace(/\/$/,""))}</span></button>
       </div>`;
   } else if (type==="history") {
     showHistory();
@@ -468,6 +473,7 @@ document.addEventListener("click",event=>{
   else if (d.manual) send("manual",{query:query.value,source:d.manual});
   else if (d.history) {query.value=d.history;dialog.close();search();}
   else if (d.historyRemove) send("history-remove",{query:d.historyRemove});
+  else if (button.hasAttribute("data-site")) send("site");
   else if (button.hasAttribute("data-confirm-clear")) confirmHistoryClear(true);
   else if (button.hasAttribute("data-cancel-clear")) confirmHistoryClear(false);
   else if (button.hasAttribute("data-clear-history")) send("history-clear");

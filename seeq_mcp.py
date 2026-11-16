@@ -152,7 +152,7 @@ def serve():
                     reply["result"] = {
                         "protocolVersion": requested if requested in PROTOCOLS else PROTOCOLS[0],
                         "capabilities": {"tools": {}},
-                        "serverInfo": {"name": "seeq", "version": "1.0.0"},
+                        "serverInfo": {"name": "seeq", "version": "1.1.0"},
                     }
                     initialized = True
                 elif method == "ping":

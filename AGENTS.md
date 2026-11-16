@@ -20,7 +20,7 @@ App Windows de **busca de metadados e links de torrents** (não é cliente BitTo
 | `interface/` | UI: `index.html`, `style.css`, `desk.js`, `i18n.js`, assets de marca e backdrop |
 | `desktop-app/` | Shell publicado (versão em pasta, **binário regenerável**, fora do git) |
 | `browser/` | Navegador integrado publicado (**binário regenerável**, fora do git; exigido pelo `pack_payload.py`) |
-| `dist/` | `seeq-Standalone-x64.exe` (~512 MB, build de 13/11/2026; fora do git) |
+| `dist/` | `seeq-Standalone-x64.exe` (~512 MB, v1.1.0, build de 16/11/2026; fora do git) |
 | `providers/` | Plugins de fonte do usuário (carregados de `%APPDATA%\torrentFindr\providers`) |
 | `app.py`, `window_chrome.py`, `desktop_style.py` | Protótipo Tkinter legado — a UI atual é WebView2 |
 | `integrations/` | Configs MCP prontas: `hermes.yaml`, `strata.json`, `LEIA-ME.md` |
@@ -68,6 +68,13 @@ dotnet publish desktop/TorrentFindr.Desktop.csproj -c Release -r win-x64 --self-
   - **Academic Torrents:** catálogo busca e retorna magnets, mas a página de detalhes devolve 403.
   - **EXT.to / 1337x:** HTTP 403 em consulta direta → resolvido pelo navegador integrado (interação do usuário quando há desafio).
   - **RuTracker / CGPeers:** dependem de Jackett local configurado pelo usuário (porta 9117 + chave API em memória por sessão).
+
+## Versão e Sobre
+
+- Constantes em `desktop_backend.py`: `APP_VERSION`, `DEVELOPER` (Renan Matos), `SITE` (https://renmatsi.github.io/). Enviadas no `snapshot()` e exibidas na seção **Sobre** do painel Configurações (`interface/desk.js`, traduções em `i18n.js`).
+- O botão do site envia a action `site` → backend abre com `webbrowser.open` (o WebView2 bloqueia navegação externa; nunca usar `<a href>` externo na UI).
+- Ao lançar versão: bumpar `APP_VERSION` **e** `serverInfo.version` em `seeq_mcp.py`, rebuildar o standalone.
+- Títulos: `Result.__post_init__` aplica `html.unescape` (apibay entrega entidades HTML).
 
 ## Convenções de UI (preferências do usuário — não regredir)
 
